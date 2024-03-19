@@ -40,5 +40,11 @@ workflows:
     jobs:
       - build
       - test
+        requires:
+	 - build
       - integration
+	requires:
+	 - test
       - prod
+	requires:
+	 - integration
