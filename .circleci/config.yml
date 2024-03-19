@@ -22,6 +22,7 @@ jobs:
       - checkout
 
       - run: |
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker build -t $DOCKER_USERNAME/django.nv .   # Build the application into Docker image
           docker push $DOCKER_USERNAME/django.nv         # Push the image into registry
 
@@ -56,7 +57,7 @@ workflows:
             - test
       - integration:
           requires:
-            - test
+            - release
       - prod:
           type: approval
           requires:
